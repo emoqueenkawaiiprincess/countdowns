@@ -2,83 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Countdown until Valya&Moro reunion &lt;3</title>
-
-  <!-- Orbitron Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valya&Moro reunion <3</title>
   <style>
+    @keyframes backgroundScroll {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
     body {
       margin: 0;
-      background: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-      background-size: cover;
+      padding: 0;
       font-family: 'Orbitron', sans-serif;
-      color: #00aaff; /* Bright blue */
-      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1478344082430-8a2d60cda7d6?auto=format&fit=crop&w=1920&q=80') repeat;
+      background-size: cover;
+      animation: backgroundScroll 120s linear infinite;
+      color: #fff;
+      text-align: center;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
-    }
-
-    .hud-container {
-      background-color: rgba(0, 10, 30, 0.85); /* Dark blue transparent */
-      border: 2px solid #00aaff;
-      border-radius: 15px;
-      padding: 40px;
-      box-shadow: 0 0 20px #00aaff;
-      max-width: 90vw;
-      text-align: center;
-      animation: pulseBorder 2s infinite ease-in-out;
-    }
-
-    @keyframes pulseBorder {
-      0%, 100% {
-        box-shadow: 0 0 10px #00aaff;
-      }
-      50% {
-        box-shadow: 0 0 25px #00aaff;
-      }
+      height: 100vh;
     }
 
     h1 {
-      font-size: 2em;
-      margin-bottom: 30px;
-      text-shadow: 0 0 5px #00aaff;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00f, 0 0 20px #0ff;
     }
 
     #countdown {
-      font-size: 3em;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px #00aaff;
-      animation: glow 1.5s ease-in-out infinite alternate;
+      font-size: 2em;
+      margin-top: 20px;
+      text-shadow: 0 0 10px #0ff;
     }
 
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 10px #00aaff;
-      }
-      to {
-        text-shadow: 0 0 20px #00aaff, 0 0 30px #00aaff;
-      }
+    audio {
+      margin-top: 30px;
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="hud-container">
-    <h1>Valya&amp;Moro reunion &lt;3</h1>
-    <div id="countdown">Loading...</div>
-  </div>
+  <h1>Valya&amp;Moro reunion &lt;3</h1>
+  <div id="countdown">Loading...</div>
+  <audio controls autoplay loop>
+    <source src="https://dl.dropboxusercontent.com/s/3vb24zxfj2hkn1j/Enigma%20-%20Gravity%20Of%20Love.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script>
     function getNextSaturdayAt8PM() {
       const now = new Date();
       const result = new Date(now);
-      const daysUntilSaturday = (6 - now.getDay() + 7) % 7;
-      result.setDate(now.getDate() + daysUntilSaturday);
-      result.setHours(20, 0, 0, 0);
-      if (result <= now) {
+      result.setDate(now.getDate() + ((6 - now.getDay() + 7) % 7)); // Saturday = 6
+      result.setHours(20, 0, 0, 0); // 8:00 PM
+      if (result < now) {
         result.setDate(result.getDate() + 7);
       }
       return result;
@@ -91,7 +71,7 @@
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        document.getElementById('countdown').innerHTML = 'Zavurti se 🥹💖';
+        document.getElementById("countdown").innerHTML = "Zavurti se 🥹💖";
         return;
       }
 
@@ -100,7 +80,7 @@
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      document.getElementById('countdown').innerHTML =
+      document.getElementById("countdown").innerHTML =
         `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
