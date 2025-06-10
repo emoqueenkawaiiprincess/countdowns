@@ -19,23 +19,23 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      backdrop-filter: brightness(0.3); /* dims background */
+      background-color: #000; /* fallback */
     }
 
     h1 {
       font-size: 2.8em;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      text-shadow: 0 0 10px #00ffff;
       margin-bottom: 20px;
     }
 
     #countdown {
       font-size: 1.8em;
-      text-shadow: 0 0 8px #00ffff;
+      text-shadow: 0 0 6px #00ffff;
       margin-bottom: 30px;
     }
 
     audio {
-      filter: drop-shadow(0 0 5px #00ffff);
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -51,10 +51,10 @@
     function getNextSaturday8PM() {
       const now = new Date();
       const day = now.getDay();
-      const distance = (6 - day + 7) % 7 || 7; // Saturday
+      const daysUntilSaturday = (6 - day + 7) % 7 || 7;
       const target = new Date(now);
-      target.setDate(now.getDate() + distance);
-      target.setHours(20, 0, 0, 0); // 8:00 PM
+      target.setDate(now.getDate() + daysUntilSaturday);
+      target.setHours(20, 0, 0, 0);
       return target;
     }
 
