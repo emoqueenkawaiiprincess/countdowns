@@ -2,70 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Valya&Moro reunion &lt;3</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Countdown until Valya&Moro reunion &lt;3</title>
+
+  <!-- Orbitron Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: url('https://images.unsplash.com/photo-1477201389074-1863f668fac1?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Orbitron', sans-serif;
-      color: #00ffff;
-      text-align: center;
+      color: #00aaff; /* Bright blue */
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-color: #000; /* fallback */
+      overflow: hidden;
+    }
+
+    .hud-container {
+      background-color: rgba(0, 10, 30, 0.85); /* Dark blue transparent */
+      border: 2px solid #00aaff;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 0 20px #00aaff;
+      max-width: 90vw;
+      text-align: center;
+      animation: pulseBorder 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseBorder {
+      0%, 100% {
+        box-shadow: 0 0 10px #00aaff;
+      }
+      50% {
+        box-shadow: 0 0 25px #00aaff;
+      }
     }
 
     h1 {
-      font-size: 2.8em;
-      text-shadow: 0 0 10px #00ffff;
-      margin-bottom: 20px;
+      font-size: 2em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 5px #00aaff;
     }
 
     #countdown {
-      font-size: 1.8em;
-      text-shadow: 0 0 6px #00ffff;
-      margin-bottom: 30px;
+      font-size: 3em;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #00aaff;
+      animation: glow 1.5s ease-in-out infinite alternate;
     }
 
-    audio {
-      margin-top: 10px;
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00aaff;
+      }
+      to {
+        text-shadow: 0 0 20px #00aaff, 0 0 30px #00aaff;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Valya&amp;Moro reunion &lt;3</h1>
-  <div id="countdown">Loading...</div>
-  <audio controls autoplay loop>
-    <source src="https://vgmsite.com/soundtracks/enigma-gravity-of-love/Enigma%20-%20Gravity%20of%20Love.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+  <div class="hud-container">
+    <h1>Valya&amp;Moro reunion &lt;3</h1>
+    <div id="countdown">Loading...</div>
+  </div>
 
   <script>
-    function getNextSaturday8PM() {
+    function getNextSaturdayAt8PM() {
       const now = new Date();
-      const day = now.getDay();
-      const daysUntilSaturday = (6 - day + 7) % 7 || 7;
-      const target = new Date(now);
-      target.setDate(now.getDate() + daysUntilSaturday);
-      target.setHours(20, 0, 0, 0);
-      return target;
+      const result = new Date(now);
+      const daysUntilSaturday = (6 - now.getDay() + 7) % 7;
+      result.setDate(now.getDate() + daysUntilSaturday);
+      result.setHours(20, 0, 0, 0);
+      if (result <= now) {
+        result.setDate(result.getDate() + 7);
+      }
+      return result;
     }
 
-    const targetDate = getNextSaturday8PM();
+    const targetDate = getNextSaturdayAt8PM();
 
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "Zavurti se 🥹💖";
+        document.getElementById('countdown').innerHTML = 'Zavurti se 🥹💖';
         return;
       }
 
@@ -74,7 +100,7 @@
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      document.getElementById("countdown").innerHTML =
+      document.getElementById('countdown').innerHTML =
         `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
