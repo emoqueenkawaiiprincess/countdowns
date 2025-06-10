@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Countdown until Valya&Moro reunion &lt;3</title>
+
+  <!-- Orbitron Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      background: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Orbitron', sans-serif;
+      color: #00aaff; /* Bright blue */
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hud-container {
+      background-color: rgba(0, 10, 30, 0.85); /* Dark blue transparent */
+      border: 2px solid #00aaff;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 0 20px #00aaff;
+      max-width: 90vw;
+      text-align: center;
+      animation: pulseBorder 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseBorder {
+      0%, 100% {
+        box-shadow: 0 0 10px #00aaff;
+      }
+      50% {
+        box-shadow: 0 0 25px #00aaff;
+      }
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 5px #00aaff;
+    }
+
+    #countdown {
+      font-size: 3em;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #00aaff;
+      animation: glow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00aaff;
+      }
+      to {
+        text-shadow: 0 0 20px #00aaff, 0 0 30px #00aaff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hud-container">
+    <h1>Valya&amp;Moro reunion &lt;3</h1>
+    <div id="countdown">Loading...</div>
+  </div>
+
+  <script>
+    function getNextSaturdayAt8PM() {
+      const now = new Date();
+      const result = new Date(now);
+      const daysUntilSaturday = (6 - now.getDay() + 7) % 7;
+      result.setDate(now.getDate() + daysUntilSaturday);
+      result.setHours(20, 0, 0, 0);
+      if (result <= now) {
+        result.setDate(result.getDate() + 7);
+      }
+      return result;
+    }
+
+    const targetDate = getNextSaturdayAt8PM();
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = 'Zavurti se 🥹💖';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('countdown').innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
