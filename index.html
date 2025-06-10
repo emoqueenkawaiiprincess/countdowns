@@ -2,69 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valya&Moro reunion <3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valya&Moro reunion &lt;3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
-    @keyframes backgroundScroll {
-      0% { background-position: 0 0; }
-      100% { background-position: 1000px 1000px; }
-    }
-
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: url('https://images.unsplash.com/photo-1478344082430-8a2d60cda7d6?auto=format&fit=crop&w=1920&q=80') repeat;
+      background: url('https://images.unsplash.com/photo-1477201389074-1863f668fac1?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
       background-size: cover;
-      animation: backgroundScroll 120s linear infinite;
-      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffff;
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      backdrop-filter: brightness(0.3); /* dims background */
     }
 
     h1 {
-      font-size: 2.5em;
+      font-size: 2.8em;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
       margin-bottom: 20px;
-      text-shadow: 0 0 10px #00f, 0 0 20px #0ff;
     }
 
     #countdown {
-      font-size: 2em;
-      margin-top: 20px;
-      text-shadow: 0 0 10px #0ff;
+      font-size: 1.8em;
+      text-shadow: 0 0 8px #00ffff;
+      margin-bottom: 30px;
     }
 
     audio {
-      margin-top: 30px;
+      filter: drop-shadow(0 0 5px #00ffff);
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 </head>
 <body>
   <h1>Valya&amp;Moro reunion &lt;3</h1>
   <div id="countdown">Loading...</div>
   <audio controls autoplay loop>
-    <source src="https://dl.dropboxusercontent.com/s/3vb24zxfj2hkn1j/Enigma%20-%20Gravity%20Of%20Love.mp3" type="audio/mpeg">
+    <source src="https://vgmsite.com/soundtracks/enigma-gravity-of-love/Enigma%20-%20Gravity%20of%20Love.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
   <script>
-    function getNextSaturdayAt8PM() {
+    function getNextSaturday8PM() {
       const now = new Date();
-      const result = new Date(now);
-      result.setDate(now.getDate() + ((6 - now.getDay() + 7) % 7)); // Saturday = 6
-      result.setHours(20, 0, 0, 0); // 8:00 PM
-      if (result < now) {
-        result.setDate(result.getDate() + 7);
-      }
-      return result;
+      const day = now.getDay();
+      const distance = (6 - day + 7) % 7 || 7; // Saturday
+      const target = new Date(now);
+      target.setDate(now.getDate() + distance);
+      target.setHours(20, 0, 0, 0); // 8:00 PM
+      return target;
     }
 
-    const targetDate = getNextSaturdayAt8PM();
+    const targetDate = getNextSaturday8PM();
 
     function updateCountdown() {
       const now = new Date();
